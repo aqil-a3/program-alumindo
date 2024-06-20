@@ -3,7 +3,7 @@ import { navLinks } from "~/lib/data/sidebar";
 
 export default function Sidebar() {
   return (
-    <div className="fixed left-0 top-0 py-8 px-4">
+    <div className="py-8 pl-4">
       <details>
         <summary>Root</summary>
         <details className="px-4">
@@ -13,9 +13,9 @@ export default function Sidebar() {
           <summary>Distribution</summary>
           <details className="px-4">
             <summary>Purchase Requisition</summary>
-            <div className="flex flex-col">
+            <div className="flex flex-col flex-nowrap">
               {navLinks.map((navLink, index) => (
-                <NavLink key={index} to={navLink.to} className="px-8">
+                <NavLink key={index} to={navLink.to} className="pl-4 text-sm">
                   {navLink.text}
                 </NavLink>
               ))}

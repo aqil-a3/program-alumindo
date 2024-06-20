@@ -20,8 +20,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Navbar />
+        <div className="grid grid-cols-[30%_auto]">
         <Sidebar />
         {children}
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -13,7 +13,7 @@ export const navLinks:SidebarLinksState[] = [
     { to: "/pre-po-report", text: "Pre PO Report" },
     { to: "/pre-po-receipts-report", text: "Pre Receipts Report" },
     { to: "/purchase-order-report", text: "Purchase Order Report" },
-    { to: "/pre-po-without-report", text: "Pre PO Without Report" },
+    { to: "/pre-po-without-receipt", text: "Pre PO Without Receipt" },
     { to: "/purchase-receipt-report", text: "Purchase Receipt Report" }
   ];
   
