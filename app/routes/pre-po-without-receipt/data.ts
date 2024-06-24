@@ -16,6 +16,20 @@ export interface DetailTableProps {
   remarks: string;
 }
 
+export interface DetailLotProps{
+  ls:string;
+  qty: number;
+  expireDate: string;
+  location: string;
+}
+
+export const lotNumber: string[] = [
+  "L/S (e)",
+  "Qty (e)",
+  "Expire Date (e)",
+  "Location (...)"
+]
+
 export const detailTableHeaders: string[] = [
   "Spectrogram (...)",
   "Weighing (...)",
