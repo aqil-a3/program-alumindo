@@ -7,6 +7,7 @@ type TableModeState = "Header" | "Detail";
 export default function PopupAddData() {
   const [tableMode, setTableMode] = useState<TableModeState>("Header");
   const fetcher = useFetcher();
+  console.log("OK")
   return (
     <div>
       <h1>Editable Mode</h1>
