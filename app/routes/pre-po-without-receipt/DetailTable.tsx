@@ -5,7 +5,7 @@ import {
   lotNumber,
 } from "./data";
 import { Button } from "~/components/ui/button";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TableCellProps {
   type: "text" | "number";
@@ -52,20 +52,52 @@ const TableCell = ({ index, name, type, value }: TableCellProps) => {
 
 export default function DetailTable({ isActivated }: { isActivated: boolean }) {
   const [headerData, setHeaderData] = useState<DetailTableProps[]>([]);
+  const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false)
+
+  const addData = () =>{
+    return setHeaderData([...headerData, defaultHeaderData])
+  }
+
+  const activeDeleteMode = () => {
+    return setIsDeleteMode(!isDeleteMode);
+  }
+
   useEffect(() => {
-    console.log(headerData);
+    const keyBoardAddData = (e:KeyboardEvent) =>{
+      if(e.ctrlKey && e.shiftKey && e.key === "A"){
+        e.preventDefault();
+        addData();
+      }
+    }
+    window.addEventListener("keydown", keyBoardAddData)
+
+    return () =>{
+      window.removeEventListener("keydown", keyBoardAddData);
+    }
   }, [headerData]);
+
+
   return (
     <div className={isActivated ? "grid grid-cols-2" : "hidden"}>
       <div className="overflow-x-scroll relative px-4 pt-4 pb-8 min-h-[250px]">
+        <div className="flex gap-1">
         <Button
           className="h-5 relative"
           type="button"
-          onClick={() => setHeaderData([...headerData, defaultHeaderData])}
+          onClick={addData}
         >
           Tambah
         </Button>
+        <Button
+          className="h-5 relative bg-red-500"
+          type="button"
+          onClick={activeDeleteMode}
+        >
+          {isDeleteMode ? "Batal" : "Hapus"}
+        </Button>
+        </div>
         <div>
+          
           <table>
             <thead>
               <tr>
@@ -81,7 +113,7 @@ export default function DetailTable({ isActivated }: { isActivated: boolean }) {
             </thead>
             <tbody>
               {headerData.map((h, i) => (
-                <tr key={i + 1}>
+                <tr key={i + 1} data-index={i}>
                   <TableCell
                     index={i}
                     name={"spectrogram"}

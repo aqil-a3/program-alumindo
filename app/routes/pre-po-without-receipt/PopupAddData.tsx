@@ -7,9 +7,9 @@ type TableModeState = "Header" | "Detail";
 export default function PopupAddData() {
   const [tableMode, setTableMode] = useState<TableModeState>("Header");
   const fetcher = useFetcher();
-  console.log("OK")
+  
   return (
-    <div>
+    <div className="px-4">
       <h1>Editable Mode</h1>
       <div className="flex">
         <div>
