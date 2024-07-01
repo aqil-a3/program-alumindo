@@ -2,40 +2,26 @@ import { useState } from "react";
 import HeaderTable from "./HeaderTable";
 import DetailTable from "./DetailTable";
 import { useFetcher } from "@remix-run/react";
+import Table from "./Tab";
 
-type TableModeState = "Header" | "Detail";
+export type TableModeState = "Header" | "Detail";
+
 export default function PopupAddData() {
   const [tableMode, setTableMode] = useState<TableModeState>("Header");
   const fetcher = useFetcher();
-  
+
   return (
-    <div className="px-4">
-      <h1>Editable Mode</h1>
-      <div className="flex">
-        <div>
-          <input
-            type="radio"
-            name="table-mode"
-            checked={tableMode ==="Header"}
-            id="table-header"
-            onChange={() => setTableMode("Header")}
-          />
-          <label htmlFor="table-header">Header</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="table-mode"
-            id="table-detail"
-            onChange={() => setTableMode("Detail")}
-          />
-          <label htmlFor="table-detail">Detail</label>
-        </div>
+    <div className="p-4">
+      <div className="py-2">
+        <h1>Editable Mode</h1>
+        <Table setTableMode={setTableMode} />
       </div>
-      <fetcher.Form method="POST">
-        <HeaderTable isActivated={tableMode === "Header"} />
-        <DetailTable isActivated={tableMode === "Detail"} />
-      </fetcher.Form>
+      <div>
+        <fetcher.Form method="POST">
+          <HeaderTable isActivated={tableMode === "Header"} />
+          <DetailTable isActivated={tableMode === "Detail"} />
+        </fetcher.Form>
+      </div>
     </div>
   );
 }
