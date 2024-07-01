@@ -2,7 +2,7 @@ import { useState } from "react";
 import HeaderTable from "./HeaderTable";
 import DetailTable from "./DetailTable";
 import { useFetcher } from "@remix-run/react";
-import Table from "./Tab";
+import TableNavigation from "./Tab";
 
 export type TableModeState = "Header" | "Detail";
 
@@ -14,7 +14,7 @@ export default function PopupAddData() {
     <div className="p-4">
       <div className="py-2">
         <h1>Editable Mode</h1>
-        <Table setTableMode={setTableMode} />
+        <TableNavigation setTableMode={setTableMode} />
       </div>
       <div>
         <fetcher.Form method="POST">

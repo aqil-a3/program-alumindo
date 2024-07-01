@@ -1,18 +1,19 @@
 import {
-  DetailLotProps,
-  DetailTableProps,
   detailTableHeaders,
   lotNumber,
 } from "./data";
 import { Button } from "~/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { DetailTableProps, TableCellProps } from "~/@types/PPWR";
 
-interface TableCellProps {
-  type: "text" | "number";
-  name: keyof DetailTableProps;
-  index: number;
-  value: string;
+interface DetailTableContextProps {
+  headerData: DetailTableProps[];
+  setHeaderData :React.Dispatch<React.SetStateAction<DetailTableProps[]>>;
+  isDeleteMode: boolean;
+  setIsDeleteMode :React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const DetailTableContext = createContext<DetailTableContextProps>({} as DetailTableContextProps)
 
 const defaultHeaderData: DetailTableProps = {
   account: "",
@@ -31,10 +32,6 @@ const defaultHeaderData: DetailTableProps = {
   umConv: "1",
   weighing: "",
 };
-
-// const defaultLotData: DetailLotProps ={
-//   ls: ;
-// }
 
 const TableCell = ({ index, name, type, value }: TableCellProps) => {
   return (
@@ -78,9 +75,10 @@ export default function DetailTable({ isActivated }: { isActivated: boolean }) {
 
 
   return (
+    <DetailTableContext.Provider value={{headerData, isDeleteMode, setHeaderData, setIsDeleteMode}}>
     <div className={isActivated ? "grid grid-cols-2" : "hidden"}>
       <div className="overflow-x-scroll relative px-4 pt-4 pb-8 min-h-[250px]">
-        <div className="flex gap-1">
+        <div className="flex gap-1 my-2">
         <Button
           className="h-5 relative"
           type="button"
@@ -217,5 +215,10 @@ export default function DetailTable({ isActivated }: { isActivated: boolean }) {
         </div>
       </div>
     </div>
+    </DetailTableContext.Provider>
   );
+}
+
+export function useDetailTableData(){
+  return useContext(DetailTableContext);
 }

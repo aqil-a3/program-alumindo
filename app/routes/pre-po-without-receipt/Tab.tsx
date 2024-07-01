@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { TableModeState } from "./PopupAddData";
 
-export default function Table({
+export default function TableNavigation({
   setTableMode,
 }: {
   setTableMode: React.Dispatch<React.SetStateAction<TableModeState>>;
