@@ -31,8 +31,8 @@ export default function DetailMaterial() {
   };
 
   return (
-    <div className="overflow-x-scroll relative px-4 pt-4 pb-8 min-h-[250px]">
-      <div className="fixed top-28 flex gap-1 mb-2">
+    <div className="overflow-x-scroll relative px-4 min-h-[250px]">
+      <div className="sticky top-0 left-0 flex gap-1 mb-2">
         <Button className="h-5 relative" type="button" onClick={addData}>
           Tambah
         </Button>
@@ -44,7 +44,7 @@ export default function DetailMaterial() {
           {isDeleteMode ? "Batal" : "Hapus"}
         </Button>
       </div>
-      <div className="mt-8">
+      <div className="mt-2">
         <table>
           <thead>
             <tr>

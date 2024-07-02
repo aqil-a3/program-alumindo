@@ -22,14 +22,14 @@ export default function DetailLotNumber() {
   };
 
   return (
-    <div className="overflow-x-scroll px-4 pb-8 pt-4 min-h-[250px]">
-      <div className="fixed top-28 items-center flex gap-1 mb-2">
+    <div className="overflow-x-scroll relative px-4 min-h-[250px]">
+      <div className="sticky top-0 left-0 items-center flex gap-1 mb-2">
         <Button onClick={addHandler} className="h-5" type="button">
           Tambah
         </Button>
         <DetailLotNumberConfig setPrefix={setPrefix} />
       </div>
-      <div className="mt-8">
+      <div className="mt-2">
         <table>
           <thead>
             <tr>
