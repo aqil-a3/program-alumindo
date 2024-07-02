@@ -1,4 +1,4 @@
-import { DetailTableProps } from "~/@types/PPWR";
+import { DetailLotProps, DetailTableProps } from "~/@types/PPWR";
 
 export const lotNumber: string[] = [
   "L/S (e)",

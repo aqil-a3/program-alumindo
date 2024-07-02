@@ -1,3 +1,4 @@
+import React, { SetStateAction, useRef } from "react";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -13,7 +14,18 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 
-export default function DetailLotNumberConfig() {
+export default function DetailLotNumberConfig({
+  setPrefix,
+}: {
+  setPrefix: React.Dispatch<SetStateAction<string>>;
+}) {
+  const prefixRef = useRef<null | HTMLInputElement>(null);
+
+  const savePrefix = () => {
+    if (prefixRef && prefixRef.current) {
+      return setPrefix( prefixRef.current.value);
+    }
+  };
   return (
     <Sheet>
       <SheetTrigger>
@@ -29,12 +41,16 @@ export default function DetailLotNumberConfig() {
         </SheetHeader>
         <div className="divide-y-2">
           <Label htmlFor="prefix">Kata Depan (Prefix)</Label>
-          <Input type="text" placeholder="Contoh: CPB24E.Ahmad" />
+          <Input
+            type="text"
+            ref={prefixRef}
+            placeholder="Contoh: CPB24E.Ahmad"
+          />
         </div>
         <SheetFooter>
           <SheetClose>
             <div className="my-2">
-              <Button>Simpan</Button>
+              <Button onClick={savePrefix}>Simpan</Button>
             </div>
           </SheetClose>
         </SheetFooter>
