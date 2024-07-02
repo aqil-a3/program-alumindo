@@ -1,3 +1,5 @@
+import { DetailTableProps } from "~/@types/PPWR";
+
 export const lotNumber: string[] = [
   "L/S (e)",
   "Qty (e)",
@@ -22,3 +24,21 @@ export const detailTableHeaders: string[] = [
   "Account",
   "Remarks (e)",
 ];
+
+export const defaultHeaderData: DetailTableProps = {
+  account: "",
+  accountCode: "",
+  description: "",
+  location: "",
+  ls: "",
+  pack: "",
+  partNumber: "",
+  qty: "0",
+  qtyPack: "0",
+  qtyReal: "0",
+  remarks: "",
+  spectrogram: "",
+  um: "",
+  umConv: "1",
+  weighing: "",
+};

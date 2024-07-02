@@ -16,8 +16,6 @@ export default function TableNavigation({
           Detail
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="Header">Tentukan header dari datanya.</TabsContent>
-      <TabsContent value="Detail">Tentukan detail dari datanya.</TabsContent>
     </Tabs>
   );
 }
