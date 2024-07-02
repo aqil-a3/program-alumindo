@@ -4,6 +4,7 @@ import DetailLotNumberConfig from "./DL_Sheet";
 import { useEffect, useState } from "react";
 import DL_TableCell from "./DL_TableCell";
 import { DetailLotProps } from "~/@types/PPWR";
+import { formatDate } from "~/utils/general";
 
 export default function DetailLotNumber() {
   const [prefix, setPrefix] = useState<string>("");
@@ -12,7 +13,7 @@ export default function DetailLotNumber() {
   const addHandler = () => {
     const lotDataDetail: DetailLotProps = {
       ls: prefix,
-      expireDate: new Date().toISOString(),
+      expireDate: formatDate(new Date().toISOString()),
       location: "Gudang Bahan Baku Cibitung",
       qty: 0,
     };
