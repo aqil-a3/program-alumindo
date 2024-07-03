@@ -3,7 +3,13 @@ import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 import {
   Sheet,
   SheetClose,
@@ -18,8 +24,10 @@ import { locationSite } from "~/lib/data/location";
 
 export default function DetailLotNumberConfig({
   setPrefix,
+  setLocation,
 }: {
   setPrefix: React.Dispatch<SetStateAction<string>>;
+  setLocation: React.Dispatch<SetStateAction<string>>;
 }) {
   const prefixRef = useRef<null | HTMLInputElement>(null);
 
@@ -52,13 +60,13 @@ export default function DetailLotNumberConfig({
             />
           </div>
           <div>
-            <Select>
+            <Select onValueChange={(e) => setLocation(e)}>
               <SelectTrigger>
                 <SelectValue placeholder="Lokasi Default" />
               </SelectTrigger>
               <SelectContent>
                 {locationSite.map((ls) => (
-                  <SelectItem value={ls.code}>{ls.description}</SelectItem>
+                  <SelectItem value={ls.description}>{ls.description}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

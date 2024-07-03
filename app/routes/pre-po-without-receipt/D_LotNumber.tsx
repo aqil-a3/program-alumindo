@@ -8,13 +8,14 @@ import { formatDate } from "~/utils/general";
 
 export default function DetailLotNumber() {
   const [prefix, setPrefix] = useState<string>("");
+  const [location, setLocation] = useState<string>("")
   const [lotData, setLotData] = useState<DetailLotProps[]>([]);
 
   const addHandler = () => {
     const lotDataDetail: DetailLotProps = {
       ls: prefix,
       expireDate: formatDate(new Date().toISOString()),
-      location: "Gudang Bahan Baku Cibitung",
+      location: location,
       qty: 0,
     };
 
@@ -27,7 +28,7 @@ export default function DetailLotNumber() {
         <Button onClick={addHandler} className="h-5" type="button">
           Tambah
         </Button>
-        <DetailLotNumberConfig setPrefix={setPrefix} />
+        <DetailLotNumberConfig setLocation={setLocation} setPrefix={setPrefix} />
       </div>
       <div className="mt-2">
         <table>
