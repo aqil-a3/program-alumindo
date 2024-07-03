@@ -67,14 +67,14 @@ function TableCellDeleteMode({
 }) {
   const dataKeys = Object.keys(data);
   const [rowIndex, setRowIndex] = useState<number | null>(null);
-  
+
   const mouseEnterHandler = () => {
     return setRowIndex(index);
   };
 
   const mouseLeaveHandler = () => {
     return setRowIndex(null);
-  }
+  };
 
   return (
     <>
@@ -85,7 +85,7 @@ function TableCellDeleteMode({
             data-index={index}
             onMouseEnter={mouseEnterHandler}
             onMouseLeave={mouseLeaveHandler}
-            className="text-xs cursor-pointer hover:bg-slate-200 font-medium px-4 min-w-[130px] text-center bg-slate-300"
+            className={`text-xs cursor-pointer font-medium px-4 min-w-[130px] text-center ${index === rowIndex ? "bg-slate-200" : "bg-slate-300"}`}
           >
             <p>{data[key]}</p>
           </td>
