@@ -8,8 +8,9 @@ import { formatDate } from "~/utils/general";
 
 export default function DetailLotNumber() {
   const [prefix, setPrefix] = useState<string>("");
-  const [location, setLocation] = useState<string>("")
+  const [location, setLocation] = useState<string>("");
   const [lotData, setLotData] = useState<DetailLotProps[]>([]);
+  const [isDeleteMode, setIsDeleteMode] = useState<boolean>(false);
 
   const addHandler = () => {
     const lotDataDetail: DetailLotProps = {
@@ -28,7 +29,18 @@ export default function DetailLotNumber() {
         <Button onClick={addHandler} className="h-5" type="button">
           Tambah
         </Button>
-        <DetailLotNumberConfig setLocation={setLocation} setPrefix={setPrefix} />
+        <Button
+          onClick={() => setIsDeleteMode(!isDeleteMode)}
+          className="h-5"
+          variant={"destructive"}
+          type="button"
+        >
+          {isDeleteMode ? "Batal" : "Hapus"}
+        </Button>
+        <DetailLotNumberConfig
+          setLocation={setLocation}
+          setPrefix={setPrefix}
+        />
       </div>
       <div className="mt-2">
         <table>
@@ -47,7 +59,7 @@ export default function DetailLotNumber() {
           <tbody>
             {lotData.map((ld, i) => (
               <tr key={i + 1}>
-                <DL_TableCell data={ld} index={i + 1} />
+                <DL_TableCell data={ld} index={i + 1} isDeleteMode={isDeleteMode} />
               </tr>
             ))}
           </tbody>
