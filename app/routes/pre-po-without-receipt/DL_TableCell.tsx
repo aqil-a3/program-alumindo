@@ -23,7 +23,7 @@ function TableCellNoDeleteMode({
   data: DetailLotProps;
   index: number;
 }) {
-  const {prefix, location, lotData, setLotData} = useLotNumberData()
+  const { indexRow, setIndexRow, indexCol, setIndexCol, prefix, location, lotData, setLotData } = useLotNumberData();
   const dataKeys = Object.keys(data);
 
   const desiredOrder = ["ls", "qty", "expireDate", "location"];
@@ -39,28 +39,31 @@ function TableCellNoDeleteMode({
 
   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    const dataKey = target.getAttribute("data-key");
-    if (!dataKey) throw new Error("Attribute data-key belum diatur");
+    const rows = document.querySelectorAll("tr[data-row-name='lotData']");
 
-    const splitDataKey = dataKey.split("-");
-    const key = splitDataKey[0];
-    const index = splitDataKey[1];
+    if (e.ctrlKey && e.key === "Enter") {
+      setIndexRow((prevIndex) => prevIndex + 1);
+      const nextRow = rows[indexRow]; 
 
-    if (e.key === "ArrowDown") {
-      return addHandler(prefix, location, lotData, setLotData);
-    } else if (e.key === "ArrowLeft") {
+      if(!nextRow){
+        return addHandler(prefix, location, lotData, setLotData);
+      }
+    } else if (e.shiftKey && e.key === "Enter") {
+      setIndexRow((prevIndex) => prevIndex - 1);
+      console.log(indexRow);
     }
   };
 
   return (
     <>
-      {dataKeys.map((d) => {
+      {dataKeys.map((d, col) => {
         const key = d as keyof DetailLotProps;
         return (
           <td className="text-xs font-medium px-4 min-w-[130px] text-center bg-slate-300 cursor-default">
             <input
               type="text"
               data-key={`${key}-${index}`}
+              data-index-col={col + 1}
               onChange={getLengthChar}
               onKeyDown={keyDownHandler}
               className="px-2 bg-transparent focus-visible:border-b-2 focus-visible:border-black focus-visible:outline-none"
