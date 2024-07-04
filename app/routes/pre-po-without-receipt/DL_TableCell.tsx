@@ -2,6 +2,7 @@ import React, { SetStateAction, useState } from "react";
 import { DetailLotProps } from "~/@types/PPWR";
 import { addHandler } from "./utils";
 import { useLotNumberData } from "./D_LotNumber";
+import { navigation } from "~/utils/table";
 
 export default function DL_TableCell({
   data,
@@ -23,7 +24,8 @@ function TableCellNoDeleteMode({
   data: DetailLotProps;
   index: number;
 }) {
-  const { indexRow, setIndexRow, indexCol, setIndexCol, prefix, location, lotData, setLotData } = useLotNumberData();
+  const lotNumberData = useLotNumberData();
+  const { setIndexRow, setIndexCol } = lotNumberData;
   const dataKeys = Object.keys(data);
 
   const desiredOrder = ["ls", "qty", "expireDate", "location"];
@@ -38,20 +40,27 @@ function TableCellNoDeleteMode({
   };
 
   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    const rows = document.querySelectorAll("tr[data-row-name='lotData']");
+    const rows = document.querySelectorAll<HTMLTableRowElement>(
+      "tr[data-row-name='lotData']"
+    );
 
-    if (e.ctrlKey && e.key === "Enter") {
-      setIndexRow((prevIndex) => prevIndex + 1);
-      const nextRow = rows[indexRow]; 
-
-      if(!nextRow){
-        return addHandler(prefix, location, lotData, setLotData);
-      }
-    } else if (e.shiftKey && e.key === "Enter") {
-      setIndexRow((prevIndex) => prevIndex - 1);
-      console.log(indexRow);
+    if ((e.ctrlKey && e.key === "Enter") || e.key === "ArrowDown") {
+      e.preventDefault();
+      return navigation.goDown(rows, lotNumberData);
+    } else if (e.shiftKey && e.key === "Enter" || e.key === "ArrowUp") {
+      e.preventDefault();
+      return navigation.goUp(rows, lotNumberData);
     }
+  };
+
+  const focusHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    const inputIndexCol = Number(target.getAttribute("data-index-col"));
+    const inputIndexRow = Number(
+      target.parentElement?.parentElement?.getAttribute("data-index-row")
+    );
+    setIndexRow(inputIndexRow);
+    setIndexCol(inputIndexCol);
   };
 
   return (
@@ -59,11 +68,15 @@ function TableCellNoDeleteMode({
       {dataKeys.map((d, col) => {
         const key = d as keyof DetailLotProps;
         return (
-          <td className="text-xs font-medium px-4 min-w-[130px] text-center bg-slate-300 cursor-default">
+          <td
+            data-index-col={col + 1}
+            className="text-xs font-medium px-4 min-w-[130px] text-center bg-slate-300 cursor-default"
+          >
             <input
               type="text"
               data-key={`${key}-${index}`}
               data-index-col={col + 1}
+              onFocus={focusHandler}
               onChange={getLengthChar}
               onKeyDown={keyDownHandler}
               className="px-2 bg-transparent focus-visible:border-b-2 focus-visible:border-black focus-visible:outline-none"
